@@ -23,10 +23,10 @@ or
 ```
 package main
 
-import "github.com/SlavaBatig/godebug"
+import debug "github.com/SlavaBatig/godebug"
 
 func main() {
-	debug, err := utils.Debug("test:namespace")
+	debug, err := debug.Debug("test:namespace")
 
 	debug("Printed to stdout")
 
