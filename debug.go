@@ -14,15 +14,28 @@ import (
 //Debug wrapper
 func Debug(namespace string) (func(messages ...string), func(messages ...string)) {
 	format := "2006-01-02 15:04:05.000000"
+
 	hexed := hex.EncodeToString([]byte(namespace))
 	code := stringToColor(hexed)
+
 	start := "\u001b[1m\u001b[38;5;" + strconv.Itoa(int(code)) + "m"
-	end := "]\u001b[0m"
+	end := "\u001b[0m"
+
+	umillisec := time.Now().UnixNano() / int64(time.Millisecond)
+
 	return func(messages ...string) {
-		fmt.Println(start+namespace+" ["+time.Now().Format(format)+end+" "+strings.Join(messages, " "))
+		newTime := time.Now().UnixNano() / int64(time.Millisecond)
+		difference := newTime - umillisec
+		umillisec = newTime
+		
+		fmt.Println(start+namespace+" ["+time.Now().Format(format)+"]"+end+" "+strings.Join(messages, " ")+start+" +"+strconv.Itoa(int(difference))+"ms"+end)
 	},
 	func (messages ...string) {
-		log.New(os.Stderr, "", 0).Println(start+namespace+":error ["+time.Now().Format(format)+end+" "+strings.Join(messages, " "))
+		newTime := time.Now().UnixNano() / int64(time.Millisecond)
+		difference := newTime - umillisec
+		umillisec = newTime
+
+		log.New(os.Stderr, "", 0).Println(start+namespace+":error ["+time.Now().Format(format)+"]"+end+" "+strings.Join(messages, " ")+start+" +"+strconv.Itoa(int(difference))+"ms"+end)
 	}
 }
 
