@@ -1,6 +1,6 @@
 package debug
 
-import "github.com/SlavaBatig/go-debug"
+import "github.com/SlavaBatig/godebug"
 
 func main() {
 	debug, err := utils.Debug("test:namespace")
