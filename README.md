@@ -36,4 +36,4 @@ func main() {
 
 ### Result printed to terminal
 
-![](https://i.imgur.com/sJxokfb.png)
+![](https://i.imgur.com/WDm99JE.png)
