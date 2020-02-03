@@ -13,7 +13,7 @@ import (
 
 //Debug wrapper
 func Debug(namespace string) (func(messages ...string), func(messages ...string)) {
-	format := "2006-01-02 15:04:05.000000"
+	format := "2006-01-02 15:04:05.000"
 
 	hexed := hex.EncodeToString([]byte(namespace))
 	code := stringToColor(hexed)
